@@ -1,14 +1,14 @@
 /* In this repo your job is to write functions to make each function call work properly.
-Below is a sample problem 
+Below is a sample problem
 
   //code here for sayHi
 
    sayHi('Hi Katie', function(thingToSay){
       alert(thingToSay);
    });
-   
-and what you should write is the sayHi function that makes the code above work, 
-    
+
+and what you should write is the sayHi function that makes the code above work,
+
    var sayHi = function(str, cb){
     cb(str);
    }
@@ -16,15 +16,16 @@ and what you should write is the sayHi function that makes the code above work,
    sayHi('Hi Katie', function(thingToSay){
       alert(thingToSay); //should alert ('Hi Katie')'
    });
-    
+
 */
 
 
 // 1. Write a function called first that returns the first item of the array using a callback function
 
-  // Code Here
+var first = (arr,fn) => {
+  fn(arr[0])
+}
 
-  
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 first(names, function(firstName){
   console.log('The first name in names is ' + firstName);
@@ -35,8 +36,7 @@ first(names, function(firstName){
 
 // 2. Write a function called last which returns the last item of the array using a callback function.
 
-  //Code Here
-
+var last = (arr,fn) => fn(arr[arr.length - 1])
 
 
 last(names, function(lastName){
@@ -46,10 +46,9 @@ last(names, function(lastName){
 
 
 
-// 3. Write a function called multiply that multiplies two numbers. Invoke the callback with the result of the multiplication. 
+// 3. Write a function called multiply that multiplies two numbers. Invoke the callback with the result of the multiplication.
 
-  //Code Here
-
+var multiply = (num1,num2,cb) => cb(num1*num2)
 
 
 multiply(4, 3, function(answer){
@@ -58,12 +57,18 @@ multiply(4, 3, function(answer){
 
 
 
-// 4. Write a function called contains that checks if a name exists in an array. 
-// If it does, invoke the callback with true as an argument. 
+// 4. Write a function called contains that checks if a name exists in an array.
+// If it does, invoke the callback with true as an argument.
 // If the name does not exist, invoke the callback with false as an argument.
 
-  //Code Here 
-
+var contains = (arr,name,cb) => {
+  for (var i = 0; i < arr.length; i++){
+    if (arr[i] === name){
+      cb(true)
+    }
+    else cb(false)
+  }
+}
 
 
 
@@ -80,8 +85,16 @@ contains(names, 'Colt', function(result){
 // 5. Write a function called uniq that takes the names array and removes all duplicates.
 // Invoke the callback with the modified array as an argument.
 
-  //Code Here
+// var unique = arr.filter(function(elem, index, self) {
+//     return index == self.indexOf(elem);
+// })
 
+var uniq = (arr,cb) => {
+  var uniqArr = arr.filter(function(elem, index, self){
+    return index == self.indexOf(elem);
+  })
+  cb(uniqArr);
+}
 
 
 uniq(names, function(uniqArr){
@@ -91,8 +104,11 @@ uniq(names, function(uniqArr){
 
 // 6. Write a function called each that takes in an array of names. For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
 
-    //Code Here 
-
+var each = (arr,cb) => {
+  for (var i = 0; i < arr.length; i++){
+    cb(arr[i],i)
+  }
+}
 
 
 each(names, function(item, indice){
@@ -104,8 +120,13 @@ each(names, function(item, indice){
 // 7. Write a function called getUserById that looks at the array of user objects (users) and searches for a user by ID.
 // When the correct user object is found, invoke the callback with the user object as an argument.
 
-// Code here
-
+var getUserById = (arr,id,cb) => {
+  for (var i = 0; i < arr.length; i++){
+    if (arr[i].id === id){
+      cb(arr[i])
+    }
+  }
+}
 
 
 var users = [
@@ -130,5 +151,5 @@ var users = [
 ];
 
 getUserById(users, '16t', function(user){
-  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address); 
+  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address);
 });
